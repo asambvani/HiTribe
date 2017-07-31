@@ -14,7 +14,7 @@ isPost = [true,false]
 5.times do |i|
   group = Group.create(name:Faker::Ancient.hero)
 
-  (rand(100)+1).times do |j|
+  (rand(10)+1).times do |j|
     group.users << User.all.sample
   end
 
