@@ -5,6 +5,7 @@ function createGroup(){
     constructor(id, name){
       this.id = id
       this.name =  name
+      this.messages = []
       store.groups.push(this)
     }
     users(){
@@ -15,21 +16,35 @@ function createGroup(){
       })
     }
 
-    messages(){
+    static find(id){
+      return store.groups.filter(function(group){
+        return parseInt(group.id) === id
+      })
+    }
+
+    renderMessages(){
       //need to input first part of URL
-      fetch(`/groups/${this.id}/messages`).then(function(response){
+      fetch(`http://localhost:3000/groups/${this.id}/messages`).then(function(response){
         return response.json()
-      }).then(function(data){
+      }).then((data)=>{
         // parse data properly
+        this.messages = []
+        data.forEach((message)=>{
+          this.messages.push({userId:message.user_id ,messageText:message.message_text})
+        })
+      }).then(()=>{
+        $('#messages-container').empty()
+        debugger
+        $('#messages-container').append(this.messagesHTML())
       })
     }
 
     groupHTML(){
-      return `<li class="group" data-id="${this.id}">${this.name}</li>`)
+      return `<li class="group" data-id="${this.id}">${this.name}</li>`
     }
 
     messagesHTML(){
-      return this.messages().map(function(message){
+      return this.messages.map(function(message){
         return `<p>${message.messageText}</p>`
       }).join('')
     }
