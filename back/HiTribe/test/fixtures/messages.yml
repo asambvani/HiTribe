@@ -1,0 +1,24 @@
+# == Schema Information
+#
+# Table name: messages
+#
+#  id           :integer          not null, primary key
+#  message_text :string
+#  user_id      :integer
+#  group_id     :integer
+#  is_post      :boolean          default(FALSE)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  message_text: MyString
+  user_id: 1
+  group_id: 1
+
+two:
+  message_text: MyString
+  user_id: 1
+  group_id: 1
