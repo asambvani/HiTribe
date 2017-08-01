@@ -1,4 +1,14 @@
 class UsersController < ApplicationController
+
+  def login
+    @user = User.find_by(username:params[:username])
+    if @user
+      render json: @user
+    else
+
+    end
+  end
+
   def show
     @messages = group.messages
     render json: @messages

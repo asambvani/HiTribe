@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/login', to: 'users#login', as: "login"
   get '/groups/:id/messages', to: 'groups#messages', as: 'group_messages'
 
   get '/users/:id/friends', to: 'users#friends', as: 'user_friends'
