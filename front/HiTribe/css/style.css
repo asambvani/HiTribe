@@ -25,3 +25,9 @@
   height:450px!important;
   overflow:scroll;
 }
+
+.logo{
+  height: 50px;
+  width: 50px;
+  background-image: url('https://s3.amazonaws.com/hitribe/hitribe.jpg');
+}

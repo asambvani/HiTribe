@@ -1,8 +1,9 @@
 $(document).ready(function(event){
-  store = {users:[], groups:[], groupUsers:[], currentUser:99, currentGroup:2, intervalId:0 }
-  init()
+  store = {users:[], groups:[], groupUsers:[], currentUser:0, currentGroup:2, intervalId:0 }
+  listenForLogin()
   bindGroupNames()
   bindSubmit()
+
   //need to wait for init() to finish...
   // Group.find(store.currentGroup).renderMessages()
 
@@ -78,7 +79,7 @@ function bindSubmit(){
       })
   })
 
-  $('body').on('submit', 'form', function(event){
+  $('body').on('submit', '#messages-form', function(event){
       let messageText = $('#message-text').val()
       $('#message-text').val("")
       event.preventDefault();
@@ -98,4 +99,25 @@ function listenForNewMessages(){
   store.intervalId = setInterval(function(){
     Group.find(store.currentGroup).renderMessages()
   } , 1000)
+}
+
+function listenForLogin(){
+  //slide me up
+  $(".card").css("overflow", "hidden")
+  $(".card-reveal").css("display", "block")
+  $(".card-reveal").css("transform", "translateY(-100%)")
+  $(".login-form").on("submit", function(event){
+    event.preventDefault()
+    loginUsername = $("#login-username").val()
+    loginPassword = $("#login-password").val()
+
+    fetch(`http://localhost:3000/login?username=${loginUsername}`).then(function(response){
+      return response.json()
+    }).then(function(data){
+      store.currentUser = data.id
+      init()
+    })
+
+    $(".card-reveal").css("display", "none")
+  })
 }
