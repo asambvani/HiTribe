@@ -63,18 +63,28 @@
           </div>
         </div>
           <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Log Yourself In<i class="material-icons right">close</i></span>
-              <form class="login-form">
+            <span class="card-title grey-text text-darken-4">Sign In / Sign Up<i class="material-icons right">close</i></span>
+              <form id="login-form">
                 <label>Can You Login First:</label>
                 <input type="text" name="username" id="login-username">
                 <label>Password:</label>
                 <input type="password" name="password" id="login-password">
                 <input type="submit" class="waves-effect waves-light btn">
+                <br>
+                <br>
+                <button type="button" id="create-btn" class="waves-effect waves-light btn">Not a User?</button>
               </form>
-              <br>
-              <br>
-              <button type="button" id="create-btn" class="waves-effect waves-light btn">Not a User?</button>
-
+              <form id="create-form">
+                <label>Username:</label>
+                <input type="text" name="username" id="create-username">
+                <label>First Name:</label>
+                <input type="text" name="first-name" id="create-first-name">
+                <label>Last Name:</label>
+                <input type="text" name="last-name" id="create-last-name">
+                <label>Password:</label>
+                <input type="password" name="password" id="login-password">
+                <input type="submit" class="waves-effect waves-light btn" value="Create User" id="create-submit">
+              </form>
           </div>
     </div>
   </body>

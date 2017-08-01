@@ -31,3 +31,7 @@
   width: 50px;
   background-image: url('https://s3.amazonaws.com/hitribe/hitribe.jpg');
 }
+
+#create-form{
+  display: none;
+}

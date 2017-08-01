@@ -6,6 +6,4 @@ class GroupsController < ApplicationController
     render json: @messages
   end
 
-
-
 end

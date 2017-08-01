@@ -1,9 +1,9 @@
 $(document).ready(function(event){
   store = {users:[], groups:[], groupUsers:[], currentUser:0, currentGroup:2, intervalId:0 }
   listenForLogin()
+  listenForCreateUser()
   bindGroupNames()
   bindSubmit()
-
   //need to wait for init() to finish...
   // Group.find(store.currentGroup).renderMessages()
 
@@ -106,7 +106,7 @@ function listenForLogin(){
   $(".card").css("overflow", "hidden")
   $(".card-reveal").css("display", "block")
   $(".card-reveal").css("transform", "translateY(-100%)")
-  $(".login-form").on("submit", function(event){
+  $("#login-form").on("submit", function(event){
     event.preventDefault()
     loginUsername = $("#login-username").val()
     loginPassword = $("#login-password").val()
@@ -120,4 +120,37 @@ function listenForLogin(){
 
     $(".card-reveal").css("display", "none")
   })
+}
+
+function listenForCreateUser(){
+  $('body').on('click', '#create-btn', function(){
+    showCreateUser()
+  })
+
+  $('body').on('submit', '#create-form', function(event){
+    event.preventDefault()
+    let username = $('#create-username').val()
+    let firstName = $('#create-first-name').val()
+    let lastName = $('#create-last-name').val()
+    //let password = $('#create-password')
+    $.ajax({
+      url: "http://localhost:3000/users",
+      method: "POST",
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify({user: {username: username, first_name: firstName, last_name: lastName}})
+    }).then(function(){
+      showLogin()
+    })
+  })
+}
+
+function showLogin(){
+  $('#login-form').css("display","block")
+  $('#create-form').css("display","none")
+}
+
+function showCreateUser(){
+  $('#login-form').css("display","none")
+  $('#create-form').css("display","block")
 }
