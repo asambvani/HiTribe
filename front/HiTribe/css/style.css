@@ -6,3 +6,22 @@
 .groups-container .group {
   color:white
 }
+
+.input-container {
+  height: 80px;
+  /*background-color: grey;*/
+  position:absolute;
+  bottom:10px;
+  margin-left: 5%;
+  margin-right: 5%;
+  width:65%;
+}
+
+.input-box{
+  width:80%!important;
+}
+
+.messages-container{
+  height:450px!important;
+  overflow:scroll;
+}

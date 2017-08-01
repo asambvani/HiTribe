@@ -17,7 +17,7 @@ function createGroup(){
     }
 
     static find(id){
-      return store.groups.filter(function(group){
+      return store.groups.find(function(group){
         return parseInt(group.id) === id
       })
     }
@@ -34,7 +34,6 @@ function createGroup(){
         })
       }).then(()=>{
         $('#messages-container').empty()
-        debugger
         $('#messages-container').append(this.messagesHTML())
       })
     }
@@ -45,7 +44,7 @@ function createGroup(){
 
     messagesHTML(){
       return this.messages.map(function(message){
-        return `<p>${message.messageText}</p>`
+        return `<strong><p>${message.userId}:</strong>  ${message.messageText}</p>`
       }).join('')
     }
 

@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   get '/users/:id/groups', to: 'users#groups', as: 'user_groups'
   get '/users/:id/group_users', to: 'users#group_users', as: 'user_group_users'
 
-  resources :users, :groups
+  resources :users, :groups, :messages
 
 end
