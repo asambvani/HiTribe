@@ -32,7 +32,7 @@ function createGroup(){
         // parse data properly
         this.messages = []
         data.forEach((message)=>{
-          this.messages.push({userId:message.user_id ,messageText:message.message_text})
+          this.messages.push({userId:message.user_id ,messageText:message.message_text, isPost:message.is_post, comments:message.comments})
         })
       }).then(()=>{
         $('#messages-container').empty()
@@ -46,9 +46,16 @@ function createGroup(){
 
     messagesHTML(){
       return this.messages.map(function(message){
-        return `<strong><p>${message.userId}:</strong>  ${message.messageText}</p>`
+        if (message.isPost){
+          return `<div class="card"> <strong><p>${message.userId}:</strong>  ${message.messageText}</p>
+          <p> ${Message.commentsHTML(message)}</p> </div>`
+        } else {
+          return `<strong><p>${message.userId}:</strong>  ${message.messageText}</p>`
+        }
       }).join('')
     }
+
+
 
     static allGroupsHTML(){
       let returnHTML = '<li class="group-label">Friends<a class="modal-trigger" href="#modal1"><i class="material-icons right" id="add-friend">add_circle_outline</i></a></li><br><li class="group-label">Tribes         <a class="modal-trigger" href="#modal2"><i class="material-icons right" id="add-group">add_circle_outline</i></a></li>'

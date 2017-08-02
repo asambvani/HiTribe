@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :group_users
   has_many :groups, through: :group_users
   has_many :messages
+  has_many :comments
   has_many :posts, -> {where is_post: true}, class_name: "Message"
 
   #Has many friend_requests if the other accepts then they both become friends

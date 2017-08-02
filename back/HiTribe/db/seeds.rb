@@ -10,18 +10,31 @@
   User.create(username: Faker::Internet.user_name, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
 end
 
+200.times do |i|
+  requestor = User.all.sample
+  requested = User.all.sample
+  requestor.friend_requests << requested
+  requested.friend_requests << requestor
+end
+
 isPost = [true,false]
 5.times do |i|
   group = Group.create(name:Faker::Ancient.hero)
 
+  sample_users = User.all.sample.friends
   (rand(10)+1).times do |j|
-    group.users << User.all.sample
+    group.users << sample_users.sample
   end
 
   (rand(20)+1).times do |j|
     message = Message.new(message_text:Faker::FamilyGuy.quote, is_post:isPost.sample)
     group.users.sample.messages << message
     group.messages << message
+    if message.is_post
+      comment = Comment.new(comment_text:Faker::HarryPotter.quote)
+      message.comments << comment
+      sample_users.sample.comments << comment
+    end
   end
 
 end
