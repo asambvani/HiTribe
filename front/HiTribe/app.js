@@ -1,9 +1,16 @@
 $(document).ready(function(event){
-  store = {users:[], groups:[], groupUsers:[], currentUser:0, currentGroup:2, intervalId:0 }
-  listenForLogin()
+  $('.modal').modal();
+  store = {friends:[], groups:[], groupUsers:[], currentUser: null, currentGroup:null, intervalId:0 }
+  store.currentUser = window.localStorage.currentUser
+  checkForLogin()
   listenForCreateUser()
   bindGroupNames()
   bindSubmit()
+  bindAddGroup()
+  bindAddFriend()
+  bindShowFriends()
+  bindAddFriendToGroup()
+  bindLogout();
   //need to wait for init() to finish...
   // Group.find(store.currentGroup).renderMessages()
 
@@ -27,12 +34,16 @@ function init(){
   fetch(`http://localhost:3000/users/${currentUser}/groups`).then(function(response){
     return response.json()
   }).then(function(data){
+    store.groups = []
     data.forEach(function(group){
       new Group(group.id, group.name)
-    })
+    }
+  )
   }).then(function(){
     renderGroups()
   })
+
+  getFriends()
 
   // fetch(`http://localhost:3000/users/${currentUser.id}/friends`).then(function(response){
   //   return response.json()
@@ -60,6 +71,7 @@ function bindGroupNames(){
     Group.find(groupId).renderMessages()
     store.currentGroup = groupId
     listenForNewMessages()
+    autoDownScroll(450, '#messages-container')
   })
 }
 
@@ -77,6 +89,7 @@ function bindSubmit(){
         contentType: 'application/json',
         data: JSON.stringify({text: messageText, currentUser: store.currentUser, currentGroup: store.currentGroup})
       })
+      autoDownScroll(450, '#messages-container')
   })
 
   $('body').on('submit', '#messages-form', function(event){
@@ -90,6 +103,7 @@ function bindSubmit(){
         contentType: 'application/json',
         data: JSON.stringify({text: messageText, currentUser: store.currentUser, currentGroup: store.currentGroup})
       })
+      autoDownScroll(450, '#messages-container')
   })
 
 }
@@ -99,6 +113,25 @@ function listenForNewMessages(){
   store.intervalId = setInterval(function(){
     Group.find(store.currentGroup).renderMessages()
   } , 1000)
+
+}
+
+function checkForLogin(){
+  if(store.currentUser){
+    init()
+  } else{
+    listenForLogin()
+  }
+
+  // fetch('http://localhost:3000/login').then(function(response){
+  //   return response.json()
+  // }).then(function(data){
+  //   if(data.username===null){
+  //     listenForLogin()
+  //   } else{
+  //     store.currentUser = data.id
+  //   }
+  // })
 }
 
 function listenForLogin(){
@@ -115,6 +148,7 @@ function listenForLogin(){
       return response.json()
     }).then(function(data){
       store.currentUser = data.id
+      window.localStorage.setItem("currentUser",data.id)
       init()
     })
 
@@ -153,4 +187,90 @@ function showLogin(){
 function showCreateUser(){
   $('#login-form').css("display","none")
   $('#create-form').css("display","block")
+}
+
+function autoDownScroll(boxHeight, boxId){
+  let messageBox = $(boxId)[0]
+  messageBox.scrollTop = messageBox.scrollHeight - boxHeight
+}
+
+function bindAddGroup(){
+  $('body').on('click', '#create-group', function(){
+    let groupName = $('#new-group-name').val()
+    if(groupName){
+      $.ajax({
+        url: "http://localhost:3000/groups",
+        method: "POST",
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({name: groupName, currentUser: store.currentUser})
+      }).then(function(response){
+        init()
+      })
+    }
+  })
+}
+
+function bindAddFriend(){
+  $('body').on('click', '#create-friend', function(){
+    let friendName = $('#add-friend-name').val()
+    if(friendName){
+      $.ajax({
+        url: `http://localhost:3000/users/${store.currentUser}/friends`,
+        method: "POST",
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({friend_name: friendName, currentUser: store.currentUser})
+      }).then(function(){
+        getFriends()
+      })
+
+    }
+  })
+}
+
+function getFriends(){
+  fetch(`http://localhost:3000/users/${store.currentUser}/friends`).then(function(response){
+    return response.json()
+  }).then(function(data){
+    store.friends = []
+    data.forEach(function(friend){
+      new User(friend.id, friend.username, friend.first_name, friend.last_name)
+    })}
+  )
+}
+
+function bindShowFriends(){
+  $("#friends-icon").on('click', function(){
+    fetch(`http://localhost:3000/groups/${store.currentGroup}/users`).then(function(response){
+      return response.json()
+    }).then(function(data){
+      $('#group-members ul').empty()
+      data.forEach(function(user){
+          $('#group-members ul').append(`<li>${user.username}</li>`)
+      })
+    })
+  })
+}
+
+function bindAddFriendToGroup(){
+  $('#add-user-to-group').on('click', function(){
+    let username = $('#new-friend-in-group').val()
+    $('#new-friend-in-group').val("")
+    $.ajax({
+      url: `http://localhost:3000/groups/${store.currentGroup}/users`,
+      method: "POST",
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify({id: store.currentGroup, username: username})
+    })
+  })
+}
+
+function bindLogout(){
+  $('#logout').on('click', function(){
+    window.localStorage.setItem("currentUser", null)
+    store.currentUser = null
+    checkForLogin();
+  })
 }

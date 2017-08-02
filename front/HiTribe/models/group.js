@@ -2,12 +2,14 @@ Group = createGroup()
 
 function createGroup(){
   return class {
+
     constructor(id, name){
       this.id = id
       this.name =  name
       this.messages = []
       store.groups.push(this)
     }
+
     users(){
       return store.groupUsers.filter((groupUser)=>{
         return this.id === groupUser.groupId
@@ -39,7 +41,7 @@ function createGroup(){
     }
 
     groupHTML(){
-      return `<li class="group" data-id="${this.id}">${this.name}</li>`
+      return `<li class="group" data-id="${this.id}"> ${this.name}</li>`
     }
 
     messagesHTML(){
@@ -49,9 +51,10 @@ function createGroup(){
     }
 
     static allGroupsHTML(){
-      return store.groups.map(function(group){
+      let returnHTML = '<li class="group-label">Friends<a class="modal-trigger" href="#modal1"><i class="material-icons right" id="add-friend">add_circle_outline</i></a></li><br><li class="group-label">Tribes         <a class="modal-trigger" href="#modal2"><i class="material-icons right" id="add-group">add_circle_outline</i></a></li>'
+      return returnHTML + (store.groups.map(function(group){
         return group.groupHTML()
-      }).join('')
+      }).join(''))
     }
   }
 }

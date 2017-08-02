@@ -21,26 +21,24 @@
       <br>
       <div class="card" style="background-color:grey">
         <nav>
-            <div class="nav-wrapper">
-              <a href="#" class="brand-logo"> HiTribe</a>
-              <div> <img src="https://s3.amazonaws.com/hitribe/hitribe.jpg" class="logo activator"></div>
-
-              <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <!-- <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
-                <li><a href="collapsible.html">JavaScript</a></li> -->
-              </ul>
+          <div class="nav-wrapper">
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a id="logout">Logout</a></li>
+            </ul>
+            <a href="#" class="brand-logo"> HiTribe</a>
+            <div> <img src="https://s3.amazonaws.com/hitribe/hitribe.jpg" class="logo activator"></div>
           </div>
         </nav>
         <div class="row col s12">
           <div class="card-content">
             <div class="col s3" style="background-color:grey;height:550px">
               <ul class="groups-container" id="groups-container">
-                <li>Test</li>
+
               </ul>
             </div>
             <div class="col s9" style="background-color:white; height:550px">
               <div class="row">
+                <div id="friends-icon"> <a class="modal-trigger" href="#modal3"><i class="material-icons right medium"> group_add</i></a></div>
                 <div id="messages-container" class="messages-container">
 
                 </div>
@@ -52,7 +50,7 @@
                      <div class="row">
                        <div class="input-field">
                          <input type="text" name="" value="" class="col s11" id="message-text">
-                         <i class="material-icons prefix col s4" id="new-message">send</i>
+                         <i class="material-icons prefix col s4" id="new-message">chat_bubble_outline</i>
                        </div>
                      </div>
                    </form>
@@ -86,6 +84,44 @@
                 <input type="submit" class="waves-effect waves-light btn" value="Create User" id="create-submit">
               </form>
           </div>
+    </div>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Add a Friend</h4>
+        <label>Friend Name:</label>
+        <input type="text" id="add-friend-name">
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="create-friend">Add Friend</a>
+      </div>
+    </div>
+
+    <div id="modal2" class="modal">
+      <div class="modal-content">
+        <h4>Create a Tribe</h4>
+        <label>Tribe Name:</label>
+        <input type="text" id="new-group-name">
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="create-group">Submit</a>
+      </div>
+    </div>
+
+    <div id="modal3" class="modal">
+      <div class="modal-content">
+        <h4>Current Members</h4>
+        <div id="group-members">
+          <ul>
+
+          </ul>
+        </div>
+        <label>Add a user by username:</label>
+        <input type="text" id="new-friend-in-group">
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="add-user-to-group">Submit</a>
+      </div>
     </div>
   </body>
 </html>

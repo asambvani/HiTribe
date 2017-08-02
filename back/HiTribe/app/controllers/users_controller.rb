@@ -1,21 +1,8 @@
 class UsersController < ApplicationController
 
-  def login
-    @user = User.find_by(username:params[:username])
-    if @user
-      render json: @user
-    else
-
-    end
-  end
-
   def show
     @messages = group.messages
     render json: @messages
-  end
-
-  def friends
-
   end
 
   def groups
@@ -23,12 +10,20 @@ class UsersController < ApplicationController
     render json: @groups
   end
 
-  def group_users
-
-  end
-
   def create
     @user = User.create(user_params)
+  end
+
+  def create_friend
+    byebug
+    @user = User.find(params[:id])
+    @user.friend_requests << User.find_by(username: params[:friend_name])
+    render json: @user
+  end
+
+  def friends
+    @user = User.find(params[:id])
+    render json: @user.friends
   end
 
   private
@@ -36,4 +31,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :first_name, :last_name)
   end
+
 end

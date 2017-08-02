@@ -2,11 +2,12 @@ User = createUser()
 
 function createUser(){
   return class User{
-    constructor(id, firstName, lastName){
+    constructor(id, username, firstName, lastName){
       this.id = id
+      this.username = username
       this.firstName = firstName
       this.lastName = lastName
-      store.users.push(this)
+      store.friends.push(this)
     }
     messages(){
       // retrieve messages for this user from backend

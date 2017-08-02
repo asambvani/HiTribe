@@ -7,6 +7,11 @@
   color:white
 }
 
+.groups-container .group-label {
+  color:Black;
+  size:16px;
+}
+
 .input-container {
   height: 80px;
   /*background-color: grey;*/
@@ -34,4 +39,8 @@
 
 #create-form{
   display: none;
+}
+
+#friends-icon{
+  margin-right: 5px;
 }
