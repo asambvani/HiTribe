@@ -34,6 +34,7 @@
 .logo{
   height: 50px;
   width: 50px;
+  margin: 5px 5px 5px 5px;
   background-image: url('https://s3.amazonaws.com/hitribe/hitribe.jpg');
 }
 
