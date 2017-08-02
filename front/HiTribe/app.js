@@ -112,7 +112,7 @@ function listenForNewMessages(){
   clearInterval(store.intervalId)
   store.intervalId = setInterval(function(){
     Group.find(store.currentGroup).renderMessages()
-  } , 1000)
+  } , 250)
 
 }
 
