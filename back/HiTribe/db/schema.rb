@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(version: 20170731150855) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "friends", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "friend_request_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "group_users", force: :cascade do |t|
     t.integer "user_id"
     t.integer "group_id"
