@@ -7,9 +7,13 @@
   color:white
 }
 
+.group-column {
+  background-color: #6d4c41;
+}
 .groups-container .group-label {
   color:Black;
   size:16px;
+  font-weight: bolder;
 }
 
 .input-container {
@@ -44,4 +48,8 @@
 
 #friends-icon{
   margin-right: 5px;
+}
+
+a i {
+  color:#f44336;
 }
