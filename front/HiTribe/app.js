@@ -86,20 +86,35 @@ function bindSubmit(){
   $('body').on('submit', '#messages-form', function(event){
     submitMessage(event)
   })
+
 }
 
 function submitMessage(event){
-  let messageText = $('#message-text').val()
-  $('#message-text').val("")
+  let isPost = false
+  let messageText = ""
+
+  if ($('#post-text')[0]){
+    isPost = true
+    messageText = $('#post-text').val()
+    $('#post-text').val("")
+    }
+  else {
+    messageText = $('#message-text').val()
+    $('#message-text').val("")
+  }
+
+  
+
   event.preventDefault();
   $.ajax({
     url: "http://localhost:3000/messages",
     method: "POST",
     dataType: 'json',
     contentType: 'application/json',
-    data: JSON.stringify({text: messageText, currentUser: store.currentUser, currentGroup: store.currentGroup})
+    data: JSON.stringify({text: messageText, currentUser: store.currentUser, currentGroup: store.currentGroup, isPost: isPost})
   })
   autoDownScroll(450, '#messages-container')
+  postToMessage()
 }
 function listenForNewMessages(){
   clearInterval(store.intervalId)

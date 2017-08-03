@@ -53,7 +53,13 @@
                   <div class="row col s12">
                     <form class="col s12" id="messages-form">
                      <div class="row">
-                       <div class="input-field">
+                       <div class="input-field" id="user-send-info">
+                          <a class='dropdown-button' href='#' data-activates='dropdown1'><i class="small material-icons left">add_box</i></a>
+                          <ul id='dropdown1' class='dropdown-content'>
+                            <li><a href="#!" id="message-is-post">Post</a></li>
+                            <li><a href="#!" id="message-is-picture">Picture</a></li>
+                            <li><a href="#!" id="message-is-file">File</a></li>
+                          </ul>
                          <input type="text" name="" value="" class="col s11" id="message-text">
                          <i class="material-icons prefix col s4" id="new-message">chat_bubble_outline</i>
                        </div>
