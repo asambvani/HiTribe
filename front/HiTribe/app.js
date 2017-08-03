@@ -43,7 +43,9 @@ function init(){
     renderGroups()
   })
 
+  //We don't need BOTH of these, will need to decide which approach we want when refactoring
   getFriends()
+  //getAllGroupMembers()
 
   // fetch(`http://localhost:3000/users/${currentUser.id}/friends`).then(function(response){
   //   return response.json()
@@ -72,6 +74,7 @@ function bindGroupNames(){
     store.currentGroup = groupId
     listenForNewMessages()
     autoDownScroll(450, '#messages-container')
+    getAllGroupMembers()
   })
 }
 
@@ -272,5 +275,15 @@ function bindLogout(){
     window.localStorage.setItem("currentUser", null)
     store.currentUser = null
     checkForLogin();
+  })
+}
+
+function getAllGroupMembers(){
+  fetch(`http://localhost:3000/groups/${store.currentGroup}/users`).then(function(response){
+    return response.json()
+  }).then(function(data){
+    data.forEach(function(user){
+      new User(user.id, user.username, user.first_name, user.last_name)
+    })
   })
 }
