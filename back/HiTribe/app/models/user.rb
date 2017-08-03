@@ -25,6 +25,7 @@ class User < ApplicationRecord
 
   has_many :friend_request_relationships, foreign_key: :user_id, class_name: 'Friend'
   has_many :friend_requests, through: :friend_request_relationships, source: :friend_request
+  
 
   def friends
     self.friend_requests.select do |user|
