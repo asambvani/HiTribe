@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   def create_friend
     @user = User.find(params[:id])
-    @user.friend_requests << User.find_by(username: params[:friend_name])
+    @user.friend_requests << User.find_by(username:  params[:friend_name]) if (User.find_by(username: params[:friend_name]))
     render json: @user
   end
 

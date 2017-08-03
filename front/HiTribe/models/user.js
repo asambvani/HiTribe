@@ -1,4 +1,4 @@
-User = createUser()
+let User = createUser()
 
 function createUser(){
   return class User{
@@ -13,8 +13,8 @@ function createUser(){
       // retrieve messages for this user from backend
     }
     static find(id){
-      return store.users.filter(function(user){
-        return id === user.id
+      return store.friends.find(function(user){
+        return parseInt(id) === parseInt(user.id)
       })
     }
   }
