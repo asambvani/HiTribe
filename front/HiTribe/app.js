@@ -45,7 +45,7 @@ function init(){
 
   //We don't need BOTH of these, will need to decide which approach we want when refactoring
   getFriends()
-  //getAllGroupMembers()
+  getAllGroupMembers()
 
   // fetch(`http://localhost:3000/users/${currentUser.id}/friends`).then(function(response){
   //   return response.json()
@@ -74,44 +74,33 @@ function bindGroupNames(){
     store.currentGroup = groupId
     listenForNewMessages()
     autoDownScroll(450, '#messages-container')
-    debugger
-    //getAllGroupMembers()
+    getAllGroupMembers()
   })
 }
 
-
-//refactor this method, it's not DRY
 function bindSubmit(){
   $('body').on('click', '#new-message', function(event){
-      let messageText = $('#message-text').val()
-      $('#message-text').val("")
-      event.preventDefault();
-      $.ajax({
-        url: "http://localhost:3000/messages",
-        method: "POST",
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify({text: messageText, currentUser: store.currentUser, currentGroup: store.currentGroup})
-      })
-      autoDownScroll(450, '#messages-container')
+    submitMessage(event)
   })
 
   $('body').on('submit', '#messages-form', function(event){
-      let messageText = $('#message-text').val()
-      $('#message-text').val("")
-      event.preventDefault();
-      $.ajax({
-        url: "http://localhost:3000/messages",
-        method: "POST",
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify({text: messageText, currentUser: store.currentUser, currentGroup: store.currentGroup})
-      })
-      autoDownScroll(450, '#messages-container')
+    submitMessage(event)
   })
-
 }
 
+function submitMessage(event){
+  let messageText = $('#message-text').val()
+  $('#message-text').val("")
+  event.preventDefault();
+  $.ajax({
+    url: "http://localhost:3000/messages",
+    method: "POST",
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify({text: messageText, currentUser: store.currentUser, currentGroup: store.currentGroup})
+  })
+  autoDownScroll(450, '#messages-container')
+}
 function listenForNewMessages(){
   clearInterval(store.intervalId)
   store.intervalId = setInterval(function(){

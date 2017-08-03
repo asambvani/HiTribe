@@ -3,7 +3,7 @@ function createMessageClass(){
   return class{
     static commentsHTML(message){
       return this.comments(message).map(function(comment){
-        return `<li>${comment.user_id}: ${comment.comment_text} </li>`
+        return `<li><strong>${User.find(comment.user_id).username}</strong>: ${comment.comment_text} </li>`
       })
     }
 
