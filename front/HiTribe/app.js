@@ -74,7 +74,8 @@ function bindGroupNames(){
     store.currentGroup = groupId
     listenForNewMessages()
     autoDownScroll(450, '#messages-container')
-    getAllGroupMembers()
+    debugger
+    //getAllGroupMembers()
   })
 }
 
