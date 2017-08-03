@@ -47,10 +47,10 @@ function createGroup(){
     messagesHTML(){
       return this.messages.map(function(message){
         if (message.isPost){
-          return `<div class="card"> <strong><p>${User.find(message.userId).username}:</strong>  ${message.messageText}</p>
-          <p> ${Message.commentsHTML(message)}</p> </div>`
+          return `<div class="card post"> <strong><p><img src=${User.find(message.userId).imageURL}></img>${User.find(message.userId).username}:</strong>  ${message.messageText}</p>
+          <p> ${Message.commentsHTML(message)}</p></div>`
         } else {
-          return `<strong><p>${User.find(message.userId).username}:</strong>  ${message.messageText}</p>`
+          return `<div class="message-container row col s12"><div class="avatar col s1.5"><img src=${User.find(message.userId).imageURL}></img></div><div class="message-content col s9"><strong>${User.find(message.userId).username}:</strong>  ${message.messageText}</div></div>`
         }
       }).join('')
     }

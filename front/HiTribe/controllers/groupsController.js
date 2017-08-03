@@ -8,7 +8,7 @@ function getAllGroupMembers(){
     return response.json()
   }).then(function(data){
     data.forEach(function(user){
-      new User(user.id, user.username, user.first_name, user.last_name)
+      new User(user.id, user.username, user.first_name, user.last_name, user.image_url)
     })
   })
 }
