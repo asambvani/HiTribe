@@ -16,26 +16,23 @@ $(document).ready(function(event){
 
 })
 
-function renderPage(){
-  renderMessages()
-  renderGroups()
-}
-
 function init(){
   //manually log in with the first user (for now)
   let currentUser=store.currentUser
   //to fill in the rest of this url
-  fetch(`http://localhost:3000/users/${currentUser}/groups`).then(function(response){
-    return response.json()
-  }).then(function(data){
-    store.groups = []
-    data.forEach(function(group){
-      new Group(group.id, group.name)
-    }
-  )
-  }).then(function(){
-    renderGroups()
-  })
+  if (currentUser) {
+    fetch(`http://localhost:3000/users/${currentUser}/groups`).then(function(response){
+      return response.json()
+    }).then(function(data){
+      store.groups = []
+      data.forEach(function(group){
+        new Group(group.id, group.name)
+      }
+    )
+    }).then(function(){
+      renderGroups()
+    })
+  }
 
   //We don't need BOTH of these, will need to decide which approach we want when refactoring
   getFriends()
@@ -65,6 +62,7 @@ function checkForLogin(){
   if(store.currentUser){
     init()
   } else{
+    $('#friends-icon').css('display', 'none')
     listenForLogin()
   }
 
@@ -141,8 +139,16 @@ function autoDownScroll(boxHeight, boxId){
 
 function bindLogout(){
   $('#logout').on('click', function(){
-    window.localStorage.setItem("currentUser", null)
+    window.localStorage.setItem("currentUser", "")
+    clearInterval(store.intervalId)
+    store.friends = []
+    store.groups = []
     store.currentUser = null
+    store.currentGroup = null
+    store.intervalId = 0
+    $('#messages-container').empty()
+    $('#friends-icon').css('display', 'none')
+    renderGroups()
     checkForLogin();
   })
 }
