@@ -44,6 +44,15 @@
   background-image: url('https://s3.amazonaws.com/hitribe/hitribe.jpg');
 }
 
+.card .card-action{
+  padding:0px;
+  background-color:white
+}
+
+.post {
+  background-color: #efebe9;
+}
+
 #create-form{
   display: none;
 }
@@ -54,4 +63,22 @@
 
 a i {
   color:#f44336;
+}
+
+.message-container{
+
+}
+.avatar{
+  margin: 10px;
+  padding:0px;
+}
+
+.avatar img{
+      border-radius: 15px 15px 15px;
+}
+
+.message-content{
+width: 200px;
+margin:10px;
+
 }

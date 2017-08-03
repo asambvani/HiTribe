@@ -5,7 +5,7 @@ function getFriends(){
     }).then(function(data){
       store.friends = []
       data.forEach(function(friend){
-        new User(friend.id, friend.username, friend.first_name, friend.last_name)
+        new User(friend.id, friend.username, friend.first_name, friend.last_name, friend.image_url)
       })}
     )
   }
