@@ -21,12 +21,6 @@ function renderPage(){
   renderGroups()
 }
 
-function renderGroups(){
-  $('#groups-container').empty()
-  $('#groups-container').append(Group.allGroupsHTML())
-}
-
-
 function init(){
   //manually log in with the first user (for now)
   let currentUser=store.currentUser
@@ -67,48 +61,6 @@ function init(){
   //user_groups
 }
 // Event Listeners
-function bindGroupNames(){
-  $('body').on('click', '.group', function(){
-    let groupId = parseInt(this.dataset.id)
-    Group.find(groupId).renderMessages()
-    store.currentGroup = groupId
-    listenForNewMessages()
-    autoDownScroll(450, '#messages-container')
-    getAllGroupMembers()
-  })
-}
-
-function bindSubmit(){
-  $('body').on('click', '#new-message', function(event){
-    submitMessage(event)
-  })
-
-  $('body').on('submit', '#messages-form', function(event){
-    submitMessage(event)
-  })
-}
-
-function submitMessage(event){
-  let messageText = $('#message-text').val()
-  $('#message-text').val("")
-  event.preventDefault();
-  $.ajax({
-    url: "http://localhost:3000/messages",
-    method: "POST",
-    dataType: 'json',
-    contentType: 'application/json',
-    data: JSON.stringify({text: messageText, currentUser: store.currentUser, currentGroup: store.currentGroup})
-  })
-  autoDownScroll(450, '#messages-container')
-}
-function listenForNewMessages(){
-  clearInterval(store.intervalId)
-  store.intervalId = setInterval(function(){
-    Group.find(store.currentGroup).renderMessages()
-  } , 250)
-
-}
-
 function checkForLogin(){
   if(store.currentUser){
     init()
@@ -187,93 +139,10 @@ function autoDownScroll(boxHeight, boxId){
   messageBox.scrollTop = messageBox.scrollHeight - boxHeight
 }
 
-function bindAddGroup(){
-  $('body').on('click', '#create-group', function(){
-    let groupName = $('#new-group-name').val()
-    if(groupName){
-      $.ajax({
-        url: "http://localhost:3000/groups",
-        method: "POST",
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify({name: groupName, currentUser: store.currentUser})
-      }).then(function(response){
-        init()
-      })
-    }
-  })
-}
-
-function bindAddFriend(){
-  $('body').on('click', '#create-friend', function(){
-    let friendName = $('#add-friend-name').val()
-    if(friendName){
-      $.ajax({
-        url: `http://localhost:3000/users/${store.currentUser}/friends`,
-        method: "POST",
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify({friend_name: friendName, currentUser: store.currentUser})
-      }).then(function(){
-        getFriends()
-      })
-
-    }
-  })
-}
-
-function getFriends(){
-  fetch(`http://localhost:3000/users/${store.currentUser}/friends`).then(function(response){
-    return response.json()
-  }).then(function(data){
-    store.friends = []
-    data.forEach(function(friend){
-      new User(friend.id, friend.username, friend.first_name, friend.last_name)
-    })}
-  )
-}
-
-function bindShowFriends(){
-  $("#friends-icon").on('click', function(){
-    fetch(`http://localhost:3000/groups/${store.currentGroup}/users`).then(function(response){
-      return response.json()
-    }).then(function(data){
-      $('#group-members ul').empty()
-      data.forEach(function(user){
-          $('#group-members ul').append(`<li>${user.username}</li>`)
-      })
-    })
-  })
-}
-
-function bindAddFriendToGroup(){
-  $('#add-user-to-group').on('click', function(){
-    let username = $('#new-friend-in-group').val()
-    $('#new-friend-in-group').val("")
-    $.ajax({
-      url: `http://localhost:3000/groups/${store.currentGroup}/users`,
-      method: "POST",
-      dataType: 'json',
-      contentType: 'application/json',
-      data: JSON.stringify({id: store.currentGroup, username: username})
-    })
-  })
-}
-
 function bindLogout(){
   $('#logout').on('click', function(){
     window.localStorage.setItem("currentUser", null)
     store.currentUser = null
     checkForLogin();
-  })
-}
-
-function getAllGroupMembers(){
-  fetch(`http://localhost:3000/groups/${store.currentGroup}/users`).then(function(response){
-    return response.json()
-  }).then(function(data){
-    data.forEach(function(user){
-      new User(user.id, user.username, user.first_name, user.last_name)
-    })
   })
 }
