@@ -1,24 +1,30 @@
 function getFriends(){
-  fetch(`http://localhost:3000/users/${store.currentUser}/friends`).then(function(response){
-    return response.json()
-  }).then(function(data){
-    store.friends = []
-    data.forEach(function(friend){
-      new User(friend.id, friend.username, friend.first_name, friend.last_name)
-    })}
-  )
+  if (store.currentUser){
+    fetch(`http://localhost:3000/users/${store.currentUser}/friends`).then(function(response){
+      return response.json()
+    }).then(function(data){
+      store.friends = []
+      data.forEach(function(friend){
+        new User(friend.id, friend.username, friend.first_name, friend.last_name)
+      })}
+    )
+  }
 }
 
 function bindShowFriends(){
-  $("#friends-icon").on('click', function(){
-    fetch(`http://localhost:3000/groups/${store.currentGroup}/users`).then(function(response){
-      return response.json()
-    }).then(function(data){
-      $('#group-members ul').empty()
-      data.forEach(function(user){
-          $('#group-members ul').append(`<li>${user.username}</li>`)
+  $("#friends-icon").on('click', function(event){
+    if (store.currentGroup){
+      fetch(`http://localhost:3000/groups/${store.currentGroup}/users`).then(function(response){
+        return response.json()
+      }).then(function(data){
+        $('#group-members ul').empty()
+        data.forEach(function(user){
+            $('#group-members ul').append(`<li>${user.username}</li>`)
+        })
       })
-    })
+    }else {
+      $('#group-members ul').empty()
+    }
   })
 }
 

@@ -4,13 +4,15 @@ function renderGroups(){
 }
 
 function getAllGroupMembers(){
-  fetch(`http://localhost:3000/groups/${store.currentGroup}/users`).then(function(response){
-    return response.json()
-  }).then(function(data){
-    data.forEach(function(user){
-      new User(user.id, user.username, user.first_name, user.last_name)
+  if (store.currentGroup) {
+    fetch(`http://localhost:3000/groups/${store.currentGroup}/users`).then(function(response){
+      return response.json()
+    }).then(function(data){
+      data.forEach(function(user){
+        new User(user.id, user.username, user.first_name, user.last_name)
+      })
     })
-  })
+  }
 }
 
 function bindGroupNames(){
@@ -21,6 +23,7 @@ function bindGroupNames(){
     listenForNewMessages()
     autoDownScroll(450, '#messages-container')
     getAllGroupMembers()
+    $('#friends-icon').css('display', 'block')
   })
 }
 
