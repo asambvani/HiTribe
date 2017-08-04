@@ -46,10 +46,17 @@ function createGroup(){
 
     messagesHTML(){
       return this.messages.map(function(message){
+        let messageBodyHTML = ""
+        if (message.messageText.includes('.gif')){
+          messageBodyHTML = `<img src="${message.messageText}"></img>`
+        } else{
+          messageBodyHTML = message.messageText
+        }
+
         if (message.isPost){
           return `<div class="card post">
           <div class='container' data-id="${message.id}">
-          <p><img src=${User.find(message.userId).imageURL}></img><strong>${User.find(message.userId).username}:</strong>  ${message.messageText}</p>
+          <p><img src=${User.find(message.userId).imageURL}></img><strong>${User.find(message.userId).username}:</strong>  ${messageBodyHTML}</p>
           <p> ${Message.commentsHTML(message)}</p>
           <div class="row">
             <div class="input-field col s10">

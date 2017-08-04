@@ -82,3 +82,8 @@ width: 200px;
 margin:10px;
 
 }
+
+.card .card-reveal .card-title {
+    cursor: none;
+    display: none;
+}

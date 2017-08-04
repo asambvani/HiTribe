@@ -7,6 +7,11 @@ class MessagesController < ApplicationController
     group_id = params[:currentGroup]
     user_id = params[:currentUser]
     is_post = params[:isPost]
+    is_giphy = Message.check_giphy(text)
+    if is_giphy != text
+      is_post = true
+      text = is_giphy
+    end
     @message = Message.create(message_text:text, is_post:is_post)
     User.find(user_id).messages << @message
     Group.find(group_id).messages << @message
