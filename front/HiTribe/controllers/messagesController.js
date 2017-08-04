@@ -49,7 +49,7 @@ function listenForNewMessages(){
       if (($("#messages-container")[0].scrollHeight - $("#messages-container")[0].scrollTop) <= 550) {
         autoDownScroll(450, '#messages-container')
       }
-    } , 1000)
+    } , 250)
   }
 }
 
