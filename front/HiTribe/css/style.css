@@ -84,7 +84,7 @@ width: 100%
 }
 
 .message-content{
-  float:left;
+float:left;
 width: 200px;
 margin:10px;
 
@@ -120,3 +120,8 @@ margin:10px;
 .comment{
   float:left;
   width:100%;
+}
+
+.gif {
+  position: relative;
+}

@@ -37,16 +37,12 @@ function submitMessage(event){
   postToMessage()
 }
 
-
-
-
-
 function listenForNewMessages(){
   clearInterval(store.intervalId)
   if (store.currentUser && store.currentGroup) {
     store.intervalId = setInterval(function(){
       Group.find(store.currentGroup).renderMessages()
-      if (($("#messages-container")[0].scrollHeight - $("#messages-container")[0].scrollTop) <= 550) {
+      if (($("#messages-container")[0].scrollHeight - $("#messages-container")[0].scrollTop) <= 700) {
         autoDownScroll(450, '#messages-container')
       }
     } , 250)
@@ -70,7 +66,6 @@ $(document).ready(function(){
 
   $('body').on('click', '#add-new-comment',function(){
     let commentText = $(this).parent().parent().find('input').val()
-    debugger
     let messageId = parseInt($(this).parent().parent().parent().data().id)
     $.ajax({
       url: `http://localhost:3000/messages/${messageId}/comment`,
@@ -90,8 +85,6 @@ $(document).ready(function(){
       listenForNewMessages()
     }
   })
-
-
 })
 
 function postToMessage(){

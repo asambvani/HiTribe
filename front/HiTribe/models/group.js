@@ -48,26 +48,34 @@ function createGroup(){
       return this.messages.map(function(message){
         let messageBodyHTML = ""
         if (message.messageText.includes('.gif')){
-          messageBodyHTML = `<img src="${message.messageText}"></img>`
+          messageBodyHTML = `<img class="gif" src="${message.messageText}"></img>`
         } else{
           messageBodyHTML = message.messageText
         }
 
         if (message.isPost){
-          return `<div class="card post-container">
-          <div class='post-content' data-id="${message.id}">
-          <div class="post-text"><div class="avatar col s1.5"><img src=${User.find(message.userId).imageURL}></img></div><strong>${User.find(message.userId).username}:</strong>  ${message.messageText}</div>
-          <p> ${Message.commentsHTML(message)}</p>
-          <div class="row">
-            <div class="input-field col s10">
-              <input placeholder="Insert a comment..." id="new-comment" type="text">
+          return `
+          <div class="card post-container" data-id="${message.id}">
+            <div class="row">
+              <div class='post-content'>
+                <div class="post-text">
+                  <div class="avatar col s1.5">
+                    <img src=${User.find(message.userId).imageURL}></img>
+                  </div>
+                </div>
+                <strong>${User.find(message.userId).username}:</strong> ${messageBodyHTML}
+              </div>
             </div>
-            <div class="input-field col s2">
-              <i class="material-icons" id="add-new-comment">add</i>
+            <p> ${Message.commentsHTML(message)}</p>
+            <div class="row">
+              <div class="input-field col s10">
+                <input placeholder="Insert a comment..." id="new-comment" type="text">
+              </div>
+              <div class="input-field col s2">
+                <i class="material-icons" id="add-new-comment">add</i>
+              </div>
             </div>
-           </div>
-           </div>
-          </div>`
+           </div>`
         } else {
           return `<div class="row col s12">
                      <div class="avatar col s1.5">
