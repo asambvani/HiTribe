@@ -63,7 +63,7 @@ function createGroup(){
                     <img src=${User.find(message.userId).imageURL}></img>
                   </div>
                 </div>
-                <strong>${User.find(message.userId).username}:</strong> ${messageBodyHTML}
+                ${messageBodyHTML}
               </div>
             </div>
             <p> ${Message.commentsHTML(message)}</p>
@@ -81,7 +81,7 @@ function createGroup(){
                      <div class="avatar col s1.5">
                         <img src=${User.find(message.userId).imageURL}></img>
                     </div>
-                    <div class="message-content col s9"><strong>${User.find(message.userId).username}:</strong>  ${message.messageText}
+                    <div class="message-content col s9"> ${message.messageText}
                     </div>
                   </div>`
         }
