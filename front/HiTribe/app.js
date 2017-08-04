@@ -63,6 +63,7 @@ function init(){
 
 function checkForLogin(){
   if(store.currentUser){
+    $('#friends-icon').css('display', 'none')
     init()
   } else{
     $('#friends-icon').css('display', 'none')
