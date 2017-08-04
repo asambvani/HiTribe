@@ -54,9 +54,9 @@ function createGroup(){
         }
 
         if (message.isPost){
-          return `<div class="card post">
-          <div class='container' data-id="${message.id}">
-          <p><img src=${User.find(message.userId).imageURL}></img><strong>${User.find(message.userId).username}:</strong>  ${messageBodyHTML}</p>
+          return `<div class="card post-container">
+          <div class='post-content' data-id="${message.id}">
+          <div class="post-text"><div class="avatar col s1.5"><img src=${User.find(message.userId).imageURL}></img></div><strong>${User.find(message.userId).username}:</strong>  ${message.messageText}</div>
           <p> ${Message.commentsHTML(message)}</p>
           <div class="row">
             <div class="input-field col s10">
@@ -69,12 +69,16 @@ function createGroup(){
            </div>
           </div>`
         } else {
-          return `<div class="message-container row col s12"><div class="avatar col s1.5"><img src=${User.find(message.userId).imageURL}></img></div><div class="message-content col s9"><strong>${User.find(message.userId).username}:</strong>  ${message.messageText}</div></div>`
+          return `<div class="row col s12">
+                     <div class="avatar col s1.5">
+                        <img src=${User.find(message.userId).imageURL}></img>
+                    </div>
+                    <div class="message-content col s9"><strong>${User.find(message.userId).username}:</strong>  ${message.messageText}
+                    </div>
+                  </div>`
         }
-      }).join('')
+      }).join("")
     }
-
-
 
     static allGroupsHTML(){
       let returnHTML = '<li class="group-label">Friends<a class="modal-trigger" href="#modal1"><i class="material-icons right" id="add-friend">add_circle_outline</i></a></li><br><li class="group-label">Tribes        <a class="modal-trigger" href="#modal2"><i class="material-icons right" id="add-group">add_circle_outline</i></a></li>'
