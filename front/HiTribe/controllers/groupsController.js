@@ -27,6 +27,7 @@ function bindGroupNames(){
   })
 }
 
+
 function bindAddGroup(){
   $('body').on('click', '#create-group', function(){
     let groupName = $('#new-group-name').val()

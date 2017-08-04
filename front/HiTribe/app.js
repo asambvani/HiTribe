@@ -58,6 +58,9 @@ function init(){
   //user_groups
 }
 // Event Listeners
+
+
+
 function checkForLogin(){
   if(store.currentUser){
     init()

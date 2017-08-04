@@ -32,7 +32,7 @@ function createGroup(){
         // parse data properly
         this.messages = []
         data.forEach((message)=>{
-          this.messages.push({userId:message.user_id ,messageText:message.message_text, isPost:message.is_post, comments:message.comments})
+          this.messages.push({id:message.id, userId:message.user_id ,messageText:message.message_text, isPost:message.is_post, comments:message.comments})
         })
       }).then(()=>{
         $('#messages-container').empty()
@@ -47,8 +47,20 @@ function createGroup(){
     messagesHTML(){
       return this.messages.map(function(message){
         if (message.isPost){
-          return `<div class="card post"> <strong><p><img src=${User.find(message.userId).imageURL}></img>${User.find(message.userId).username}:</strong>  ${message.messageText}</p>
-          <p> ${Message.commentsHTML(message)}</p></div>`
+          return `<div class="card post">
+          <div class='container' data-id="${message.id}">
+          <p><img src=${User.find(message.userId).imageURL}></img><strong>${User.find(message.userId).username}:</strong>  ${message.messageText}</p>
+          <p> ${Message.commentsHTML(message)}</p>
+          <div class="row">
+            <div class="input-field col s10">
+              <input placeholder="Insert a comment..." id="new-comment" type="text">
+            </div>
+            <div class="input-field col s2">
+              <i class="material-icons" id="add-new-comment">add</i>
+            </div>
+           </div>
+           </div>
+          </div>`
         } else {
           return `<div class="message-container row col s12"><div class="avatar col s1.5"><img src=${User.find(message.userId).imageURL}></img></div><div class="message-content col s9"><strong>${User.find(message.userId).username}:</strong>  ${message.messageText}</div></div>`
         }
