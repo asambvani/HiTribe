@@ -2,11 +2,12 @@ let User = createUser()
 
 function createUser(){
   return class User{
-    constructor(id, username, firstName, lastName){
+    constructor(id, username, firstName, lastName, imageUrl){
       this.id = id
       this.username = username
       this.firstName = firstName
       this.lastName = lastName
+      this.imageURL = imageUrl
       store.friends.push(this)
     }
     messages(){

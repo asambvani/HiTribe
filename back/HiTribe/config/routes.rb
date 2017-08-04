@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get '/users/:id/groups', to: 'users#groups', as: 'user_groups'
   get '/users/:id/group_users', to: 'users#group_users', as: 'user_group_users'
 
+  post '/messages/:id/comment', to: 'messages#comment', as: 'message_comment'
+
   resources :users, :groups, :messages
 
 end
