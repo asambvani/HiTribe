@@ -69,7 +69,7 @@ $(document).ready(function(){
 
 
   $('body').on('click', '#add-new-comment',function(){
-    let commentText = $('#new-comment').val()
+    let commentText = $(this).parent().parent().find('input').val()
     debugger
     let messageId = parseInt($(this).parent().parent().parent().data().id)
     $.ajax({
