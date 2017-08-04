@@ -63,9 +63,6 @@ $(document).ready(function(){
     postToMessage()
   })
 
-  $('body').on('click','#new-comment',function(){
-    clearInterval(store.intervalId)
-  })
 
   $('body').on('click', '#add-new-comment',function(){
     let commentText = $('#new-comment').val()
@@ -79,6 +76,14 @@ $(document).ready(function(){
     }).then(function(){
       listenForNewMessages()
     })
+  })
+
+  $('body').on('click',function(event){
+    if(event.target.id === 'new-comment'){
+      clearInterval(store.intervalId)
+    } else{
+      listenForNewMessages()
+    }
   })
 
 

@@ -112,7 +112,11 @@ margin:10px;
  height:50px;
 }
 
+.card .card-reveal .card-title {
+    cursor: none;
+    display: none;
+}
+
 .comment{
   float:left;
   width:100%;
-}

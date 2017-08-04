@@ -46,6 +46,13 @@ function createGroup(){
 
     messagesHTML(){
       return this.messages.map(function(message){
+        let messageBodyHTML = ""
+        if (message.messageText.includes('.gif')){
+          messageBodyHTML = `<img src="${message.messageText}"></img>`
+        } else{
+          messageBodyHTML = message.messageText
+        }
+
         if (message.isPost){
           return `<div class="card post-container">
           <div class='post-content' data-id="${message.id}">
