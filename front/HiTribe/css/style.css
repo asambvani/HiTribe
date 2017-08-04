@@ -66,19 +66,53 @@ a i {
 }
 
 .message-container{
-
+float:left;
+width: 100%
 }
+
 .avatar{
+  float:left;
   margin: 10px;
   padding:0px;
+
 }
 
+
+
 .avatar img{
-      border-radius: 15px 15px 15px;
+  border-radius: 15px 15px 15px;
 }
 
 .message-content{
+  float:left;
 width: 200px;
 margin:10px;
 
+}
+
+.post-container{
+  float:left;
+  background-color:#efebe9;
+  width:100%;
+  margin-right:10px;
+}
+
+.post-content{
+  padding:10px;
+
+}
+
+.card-action{
+  padding-left:100px!important;
+  padding-right:10px!important;
+}
+
+.post-text{
+ float:left;
+ height:50px;
+}
+
+.comment{
+  float:left;
+  width:100%;
 }

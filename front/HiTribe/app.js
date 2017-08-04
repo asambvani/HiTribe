@@ -34,7 +34,6 @@ function init(){
     })
   }
 
-  //We don't need BOTH of these, will need to decide which approach we want when refactoring
   getFriends()
   getAllGroupMembers()
 
