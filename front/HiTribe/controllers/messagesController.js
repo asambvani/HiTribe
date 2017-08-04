@@ -66,7 +66,8 @@ $(document).ready(function(){
 
   $('body').on('click', '#add-new-comment',function(){
     let commentText = $('#new-comment').val()
-    let messageId = parseInt($(this).closest('.container')[0].dataset.id)
+    debugger
+    let messageId = parseInt($(this).parent().parent().parent().data().id)
     $.ajax({
       url: `http://localhost:3000/messages/${messageId}/comment`,
       method: "POST",
