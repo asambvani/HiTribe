@@ -34,7 +34,6 @@ function submitMessage(event){
     contentType: 'application/json',
     data: JSON.stringify({text: messageText, currentUser: store.currentUser, currentGroup: store.currentGroup, isPost: isPost})
   })
-  autoDownScroll(450, '#messages-container')
   postToMessage()
 }
 
@@ -44,9 +43,14 @@ function submitMessage(event){
 
 function listenForNewMessages(){
   clearInterval(store.intervalId)
-  store.intervalId = setInterval(function(){
-    Group.find(store.currentGroup).renderMessages()
-  } , 250)
+  if (store.currentUser && store.currentGroup) {
+    store.intervalId = setInterval(function(){
+      Group.find(store.currentGroup).renderMessages()
+      if (($("#messages-container")[0].scrollHeight - $("#messages-container")[0].scrollTop) <= 550) {
+        autoDownScroll(450, '#messages-container')
+      }
+    } , 250)
+  }
 }
 
 
