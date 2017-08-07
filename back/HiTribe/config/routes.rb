@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  get '/', to: 'application#index'
   get '/login', to: 'user_sessions#login', as: "login"
   get '/groups/:id/messages', to: 'groups#messages', as: 'group_messages'
   get '/groups/:id/users', to: 'groups#users', as: 'group_users'

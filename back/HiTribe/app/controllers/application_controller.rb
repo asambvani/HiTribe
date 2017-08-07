@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   def current_user
     session[:user_id] ||= nil
   end
-  
+
   def user_logged_in?
     if current_user
       true
@@ -11,4 +11,9 @@ class ApplicationController < ActionController::Base
       false
     end
   end
+
+  def index
+    render json: {message: "TESTING"}
+  end
+
 end

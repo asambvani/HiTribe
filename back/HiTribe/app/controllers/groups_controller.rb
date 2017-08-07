@@ -26,6 +26,9 @@ class GroupsController < ApplicationController
     render json: @group
   end
 
+  def show
+    render json: {message: "HI"}
+  end
   private
 
   def group_params

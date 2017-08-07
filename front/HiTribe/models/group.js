@@ -68,8 +68,9 @@ function createGroup(){
             </div>
             <p> ${Message.commentsHTML(message)}</p>
             <div class="row">
-              <div class="input-field col s10">
-                <input placeholder="Insert a comment..." id="new-comment" type="text">
+              <div class="col s2"></div>
+              <div class="input-field col s8">
+                <input placeholder="Insert a comment..." id="new-comment" class="new-comment" type="text">
               </div>
               <div class="input-field col s2">
                 <i class="material-icons" id="add-new-comment">add</i>
